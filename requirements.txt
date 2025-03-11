@@ -1,5 +1,5 @@
 # Core dependencies
-ollama==0.1.15  # Version may need to be updated to match the latest
+ollama==0.4.7  # Version may need to be updated to match the latest
 
 # Development dependencies
 pylint>=2.12.0
