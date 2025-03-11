@@ -2,8 +2,6 @@
 ollama==0.4.7  # Version may need to be updated to match the latest
 
 # Development dependencies
-json
-difflib
 evaluate
 sacrebleu
 rouge_score
