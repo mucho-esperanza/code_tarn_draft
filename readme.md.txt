@@ -1,4 +1,4 @@
-# code_tarn_draft
+# Code Translation System
 
 A modular system for translating code between programming languages using language models.
 

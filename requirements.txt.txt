@@ -1,0 +1,7 @@
+# Core dependencies
+ollama==0.1.15  # Version may need to be updated to match the latest
+
+# Development dependencies
+pylint>=2.12.0
+black>=22.3.0
+pytest>=7.0.0
