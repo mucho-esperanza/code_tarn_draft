@@ -9,8 +9,8 @@ This system allows you to translate code from one programming language to anothe
 1. **CodeParser**: Analyzes source code to extract structure information
 2. **PromptEngineer**: Generates optimized prompts for language models
 3. **ModelClient**: Handles communication with the language model
-4. **OutputProcessor**: Formats and validates the translated code
-5. **CodeTranslator**: Orchestrates the entire translation process
+4. **CodeTranslator**: Orchestrates the entire translation process
+5. **OutputProcessor**: Formats and validates the translated code 
 
 ## Installation
 

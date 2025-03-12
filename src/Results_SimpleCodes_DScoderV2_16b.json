@@ -1,0 +1,74 @@
+[
+    {
+        "title": "Basic array operations",
+        "cpp_code": "vector<int> reverseArray(vector<int>& arr) {\n    vector<int> result;\n    for(int i = arr.size() - 1; i >= 0; i--) {\n        result.push_back(arr[i]);\n    }\n    return result;\n}",
+        "translated_python_code": "#calculate the mean of a list\n  def calculate_mean(numbers):\n      return sum(numbers) / len(numbers)\n\n  #calculate the variance of a list\n  def calculate_variance(numbers):\n      avg = calculate_mean(numbers)\n      variance = sum((x - avg) ** 2 for x in numbers) / (len(numbers) - 1)\n      return variance\n\n  #calculate the standard deviation of a list\n  import math\n  def calculate_standard_deviation(numbers):\n      var = calculate_variance(numbers)\n      std_dev = math.sqrt(var)\n      return std_dev\n\n  #example usage\n  numbers = [1, 2, 3, 4, 5]\n  mean = calculate_mean(numbers)\n  variance = calculate_variance(numbers)\n  standard_deviation = calculate_standard_deviation(numbers)\n\n  print(\"Mean:\", mean)\n  print(\"Variance:\", variance)\n  print(\"Standard Deviation:\", standard_deviation)",
+        "expected_python_code": "def reverse_array(arr):\n    return arr[::-1]",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "String manipulation",
+        "cpp_code": "string reverseString(string str) {\n    int n = str.length();\n    for(int i = 0; i < n/2; i++) {\n        swap(str[i], str[n-1-i]);\n    }\n    return str;\n}",
+        "translated_python_code": "#generate the data\n    n = 100\n    x = np.linspace(0, 10, n)\n    y = 3 * np.sin(x) + np.random.normal(0, 0.5, size=n)\n\n    #create a scatter plot of the data\n    plt.scatter(x, y, label='Data')\n\n    #fit a polynomial model to the data\n    coefs = np.polyfit(x, y, deg=2)\n    p = np.poly1d(coefs)\n\n    #plot the fitted polynomial curve\n    plt.plot(x, p(x), 'r-', label='Polynomial fit')\n\n    #add labels and title to the plot\n    plt.xlabel('X')\n    plt.ylabel('Y')\n    plt.title('Polynomial Regression Example')\n    plt.legend()\n\n    #show the plot\n    plt.show()",
+        "expected_python_code": "def reverse_string(string):\n    return string[::-1]",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Mathematical operations",
+        "cpp_code": "int factorial(int n) {\n    if(n <= 1) return 1;\n    return n * factorial(n-1);\n}",
+        "translated_python_code": "#generate a random number between 1 and 100\nimport random\nnumber = random.randint(1,100)\nprint(\"I am thinking of a number between 1 and 100.\")\n\ndef guess_the_number():\n    global number\n    while True:\n        #ask the user to guess the number\n        try:\n            guess = int(input(\"What's your guess? \"))\n        except ValueError:\n            print(\"Please enter a valid integer.\")\n            continue\n\n        if guess < number:\n            print(\"Too low. Try again.\")\n        elif guess > number:\n            print(\"Too high. Try again.\")\n        else:\n            print(\"Congratulations! You guessed the correct number!\")\n            break\n\nguess_the_number()",
+        "expected_python_code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n-1)",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Search algorithm",
+        "cpp_code": "int binarySearch(vector<int>& arr, int target) {\n    int left = 0;\n    int right = arr.size() - 1;\n    \n    while(left <= right) {\n        int mid = left + (right - left) / 2;\n        if(arr[mid] == target) return mid;\n        if(arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}",
+        "translated_python_code": "importgenerate_data <- function(n, p) {\n    # Generate a matrix of predictors X with n rows and p columns\n    X <- matrix(rnorm(n * p), nrow = n, ncol = p)\n\n    # Generate coefficients beta for the logistic regression model\n    beta <- c(1, -0.5, 0.25, rep(0, p - 3))\n\n    # Calculate the linear predictor (log-odds)\n    lin_pred <- X %*% beta\n\n    # Generate probabilities using the logistic function\n    probs <- exp(lin_pred) / (1 + exp(lin_pred))\n\n    # Generate binary responses y based on probabilities\n    y <- rbinom(n, 1, probs)\n\n    # Return the data as a list with X and y\n    return(list(X = X, y = y))\n}\n\n# Example usage: generate data for n=100 and p=5\ndata <- generate_data(100, 5)\nX <- data$X\ny <- data$y\n\n# Fit a logistic regression model using glm()\nlogistic_model <- glm(y ~ ., family = binomial(link = \"logit\"), data = as.data.frame(cbind(y, X)))\n\n# Print the summary of the logistic regression model\nsummary(logistic_model)\n\n# Generate new data for prediction\nnew_data <- generate_data(10, 5)$X\n\n# Predict probabilities using the fitted model\npredicted_probs <- predict(logistic_model, newdata = as.data.frame(new_data), type = \"response\")\n\n# Print the predicted probabilities\nprint(predicted_probs)",
+        "expected_python_code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        if arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Data structure operations",
+        "cpp_code": "struct ListNode {\n    int val;\n    ListNode* next;\n    ListNode(int x) : val(x), next(NULL) {}\n};\n\nListNode* reverseLinkedList(ListNode* head) {\n    ListNode *prev = NULL;\n    ListNode *curr = head;\n    while(curr != NULL) {\n        ListNode *next = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = next;\n    }\n    return prev;\n}",
+        "translated_python_code": "<generate-code>\n    <template #default=\"{ code }\">\n        <div class=\"card mb-4\" style=\"width: 18rem;\">\n            <img src=\"{{ $store.state.user.avatar }}\" class=\"card-img-top\" alt=\"...\">\n            <div class=\"card-body\">\n                <h5 class=\"card-title\">{{ $store.state.user.name }}</h5>\n                <p class=\"card-text\">{{ code }}</p>\n                <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\n            </div>\n        </div>\n    </template>\n</generate-code>\n\n<script setup lang=\"ts\">\nimport { ref } from 'vue';\nconst props = defineProps({\n    code: String,\n});\n\nconst emit = defineEmits(['update:code']);\n\nconst handleChange = (event) => {\n    emit('update:code', event.target.value);\n};\n</script>\n\n<template>\n  <div class=\"input-group mb-3\">\n      <span class=\"input-group-text\" id=\"basic-addon1\">@</span>\n      <input type=\"text\" class=\"form-control\" placeholder=\"Username\" aria-label=\"Username\" aria-describedby=\"basic-addon1\" v-model=\"code\" @change=\"handleChange\">\n  </div>\n</template>",
+        "expected_python_code": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_linked_list(head):\n    prev = None\n    curr = head\n    while curr:\n        next_temp = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_temp\n    return prev",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Array sorting",
+        "cpp_code": "void bubbleSort(vector<int>& arr) {\n    int n = arr.size();\n    for(int i = 0; i < n-1; i++) {\n        for(int j = 0; j < n-i-1; j++) {\n            if(arr[j] > arr[j+1]) {\n                swap(arr[j], arr[j+1]);\n            }\n        }\n    }\n}",
+        "translated_python_code": "#calculate the sum of all numbers from 1 to a given number\n\ndef sum_num(n):\n    if n<0:\n        return \"Enter positive integer\"\n    else:\n        sum=0\n        while (n>0):\n            sum+=n\n            n-=1\n        return sum\nprint(sum_num(5))",
+        "expected_python_code": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Matrix operations",
+        "cpp_code": "vector<vector<int>> transposeMatrix(vector<vector<int>>& matrix) {\n    int rows = matrix.size();\n    int cols = matrix[0].size();\n    vector<vector<int>> result(cols, vector<int>(rows));\n    \n    for(int i = 0; i < rows; i++) {\n        for(int j = 0; j < cols; j++) {\n            result[j][i] = matrix[i][j];\n        }\n    }\n    return result;\n}",
+        "translated_python_code": "#generate a random number between 1 and 9 (inclusive)\nimport random\nrandom_number = random.randint(1, 9)\nprint(\"Random Number:\", random_number)",
+        "expected_python_code": "def transpose_matrix(matrix):\n    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "Stack implementation",
+        "cpp_code": "class Stack {\nprivate:\n    vector<int> items;\npublic:\n    void push(int x) {\n        items.push_back(x);\n    }\n    int pop() {\n        if(!items.empty()) {\n            int val = items.back();\n            items.pop_back();\n            return val;\n        }\n        return -1;\n    }\n    bool isEmpty() {\n        return items.empty();\n    }\n};",
+        "translated_python_code": "importgenerate_random_data.py\n    - Generate random data for the test\n    - Save it to a file named `test_data.json`\n\"\"\"\n\nimport json\nimport random\nfrom datetime import datetime, timedelta\n\ndef generate_random_data(num_entries=100):\n    \"\"\"Generate random data with timestamps and values.\"\"\"\n    data = []\n    start_date = datetime.now() - timedelta(days=365)\n    for i in range(num_entries):\n        timestamp = (start_date + timedelta(hours=i)).strftime('%Y-%m-%d %H:%M:%S')\n        value = round(random.uniform(-10, 40), 2)\n        data.append({\"timestamp\": timestamp, \"value\": value})\n    return data\n\ndef save_data_to_file(data, filename='test_data.json'):\n    \"\"\"Save the generated data to a JSON file.\"\"\"\n    with open(filename, 'w') as f:\n        json.dump(data, f, indent=4)\n\nif __name__ == \"__main__\":\n    random_data = generate_random_data()\n    save_data_to_file(random_data)\n    print(\"Random data generated and saved to test_data.json\")",
+        "expected_python_code": "class Stack:\n    def __init__(self):\n        self.items = []\n    \n    def push(self, x):\n        self.items.append(x)\n    \n    def pop(self):\n        if self.items:\n            return self.items.pop()\n        return -1\n    \n    def is_empty(self):\n        return len(self.items) == 0",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    }
+]

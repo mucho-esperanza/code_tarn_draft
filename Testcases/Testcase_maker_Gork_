@@ -1,0 +1,204 @@
+import json
+
+def save_code_pairs_to_json(file_path):
+    code_pairs = [
+        {
+            "title": "Basic array operations",
+            "cpp_code": """
+vector<int> reverseArray(vector<int>& arr) {
+    vector<int> result;
+    for(int i = arr.size() - 1; i >= 0; i--) {
+        result.push_back(arr[i]);
+    }
+    return result;
+}""",
+            "python_code": """
+def reverse_array(arr):
+    return arr[::-1]
+"""
+        },
+        {
+            "title": "String manipulation",
+            "cpp_code": """
+string reverseString(string str) {
+    int n = str.length();
+    for(int i = 0; i < n/2; i++) {
+        swap(str[i], str[n-1-i]);
+    }
+    return str;
+}""",
+            "python_code": """
+def reverse_string(string):
+    return string[::-1]
+"""
+        },
+        {
+            "title": "Mathematical operations",
+            "cpp_code": """
+int factorial(int n) {
+    if(n <= 1) return 1;
+    return n * factorial(n-1);
+}""",
+            "python_code": """
+def factorial(n):
+    if n <= 1:
+        return 1
+    return n * factorial(n-1)
+"""
+        },
+        {
+            "title": "Search algorithm",
+            "cpp_code": """
+int binarySearch(vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+    
+    while(left <= right) {
+        int mid = left + (right - left) / 2;
+        if(arr[mid] == target) return mid;
+        if(arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}""",
+            "python_code": """
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+"""
+        },
+        {
+            "title": "Data structure operations",
+            "cpp_code": """
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* reverseLinkedList(ListNode* head) {
+    ListNode *prev = NULL;
+    ListNode *curr = head;
+    while(curr != NULL) {
+        ListNode *next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}""",
+            "python_code": """
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverse_linked_list(head):
+    prev = None
+    curr = head
+    while curr:
+        next_temp = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_temp
+    return prev
+"""
+        },
+        {
+            "title": "Array sorting",
+            "cpp_code": """
+void bubbleSort(vector<int>& arr) {
+    int n = arr.size();
+    for(int i = 0; i < n-1; i++) {
+        for(int j = 0; j < n-i-1; j++) {
+            if(arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+}""",
+            "python_code": """
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+"""
+        },
+        {
+            "title": "Matrix operations",
+            "cpp_code": """
+vector<vector<int>> transposeMatrix(vector<vector<int>>& matrix) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    vector<vector<int>> result(cols, vector<int>(rows));
+    
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            result[j][i] = matrix[i][j];
+        }
+    }
+    return result;
+}""",
+            "python_code": """
+def transpose_matrix(matrix):
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+"""
+        },
+        {
+            "title": "Stack implementation",
+            "cpp_code": """
+class Stack {
+private:
+    vector<int> items;
+public:
+    void push(int x) {
+        items.push_back(x);
+    }
+    int pop() {
+        if(!items.empty()) {
+            int val = items.back();
+            items.pop_back();
+            return val;
+        }
+        return -1;
+    }
+    bool isEmpty() {
+        return items.empty();
+    }
+};""",
+            "python_code": """
+class Stack:
+    def __init__(self):
+        self.items = []
+    
+    def push(self, x):
+        self.items.append(x)
+    
+    def pop(self):
+        if self.items:
+            return self.items.pop()
+        return -1
+    
+    def is_empty(self):
+        return len(self.items) == 0
+"""
+        }
+    ]
+    
+    with open(file_path, "w", encoding="utf-8") as json_file:
+        json.dump(code_pairs, json_file, indent=4)
+
+# Save the code pairs to a JSON file
+save_code_pairs_to_json("code_pairs_7simplecodes_Gork.json")

@@ -1,0 +1,38 @@
+[
+    {
+        "title": "01 Multithreading with Shared Resources",
+        "cpp_code": "#include <iostream>\n#include <thread>\n#include <mutex>\n\nstd::mutex mtx;\n\nvoid incrementCounter(int& counter, int iterations) {\n    for (int i = 0; i < iterations; i++) {\n        std::lock_guard<std::mutex> lock(mtx);\n        counter++;\n    }\n}\n\nint main() {\n    int counter = 0;\n    int iterations = 1000;\n    \n    std::thread t1(incrementCounter, std::ref(counter), iterations);\n    std::thread t2(incrementCounter, std::ref(counter), iterations);\n    \n    t1.join();\n    t2.join();\n\n    std::cout << \"Final counter value: \" << counter << std::endl;\n    return 0;\n}",
+        "translated_python_code": "import threading\nimport time\n\nmtx = threading.Lock()\n\ndef incrementCounter(counter, iterations):\n    for i in range(iterations):\n        with mtx:\n            counter += 1\n\ndef main():\n    counter = 0\n    iterations = 1000\n\n    t1 = threading.Thread(target=incrementCounter, args=(counter, iterations))\n    t2 = threading.Thread(target=incrementCounter, args=(counter, iterations))\n\n    t1.start()\n    t2.start()\n\n    t1.join()\n    t2.join()\n\n    print(\"Final counter value:\", counter)\n\nif __name__ == \"__main__\":\n    main()",
+        "expected_python_code": "import threading\n\ncounter_lock = threading.Lock()\n\ndef increment_counter(counter, iterations):\n    for _ in range(iterations):\n        with counter_lock:\n            counter[0] += 1\n\ndef main():\n    counter = [0]\n    iterations = 1000\n\n    t1 = threading.Thread(target=increment_counter, args=(counter, iterations))\n    t2 = threading.Thread(target=increment_counter, args=(counter, iterations))\n\n    t1.start()\n    t2.start()\n\n    t1.join()\n    t2.join()\n\n    print(\"Final counter value:\", counter[0])\n\nmain()",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "02 Template Function with Edge Cases",
+        "cpp_code": "#include <iostream>\n#include <vector>\n#include <typeinfo>\n\ntemplate <typename T>\nvoid printElements(std::vector<T> vec) {\n    for (auto& elem : vec) {\n        std::cout << elem << \" \";\n    }\n    std::cout << std::endl;\n}\n\nint main() {\n    std::vector<int> intVec = {1, 2, 3, 4, 5};\n    std::vector<std::string> strVec = {\"hello\", \"world\"};\n\n    printElements(intVec);\n    printElements(strVec);\n    return 0;\n}",
+        "translated_python_code": "# Python does not support templates, so we need to use a different approach\n\ndef print_elements(vec):\n    for elem in vec:\n        print(elem, end=\" \")\n    print()\n\nintVec = [1, 2, 3, 4, 5]\nstrVec = [\"hello\", \"world\"]\n\nprint_elements(intVec)\nprint_elements(strVec)",
+        "expected_python_code": "def print_elements(vec):\n    for elem in vec:\n        print(elem, end=\" \")\n    print()\n\ndef main():\n    int_vec = [1, 2, 3, 4, 5]\n    str_vec = [\"hello\", \"world\"]\n\n    print_elements(int_vec)\n    print_elements(str_vec)\n\nmain()",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "03 Dynamic Memory Management with Shared Pointers",
+        "cpp_code": "#include <iostream>\n#include <memory>\n\nclass Node {\npublic:\n    int value;\n    std::shared_ptr<Node> next;\n\n    Node(int val) : value(val), next(nullptr) {}\n};\n\nvoid printList(std::shared_ptr<Node> head) {\n    while (head) {\n        std::cout << head->value << \" -> \";\n        head = head->next;\n    }\n    std::cout << \"null\" << std::endl;\n}\n\nint main() {\n    std::shared_ptr<Node> head = std::make_shared<Node>(1);\n    head->next = std::make_shared<Node>(2);\n    head->next->next = std::make_shared<Node>(3);\n\n    printList(head);\n\n    return 0;\n}",
+        "translated_python_code": "# Python does not have a built-in equivalent of std::shared_ptr, so we will use a custom class instead.\n\nclass Node:\n    def __init__(self, value):\n        self.value = value\n        self.next = None\n\ndef printList(head):\n    while head is not None:\n        print(f\"{head.value} -> \", end=\"\")\n        head = head.next\n    print(\"null\")\n\nif __name__ == \"__main__\":\n    head = Node(1)\n    head.next = Node(2)\n    head.next.next = Node(3)\n    printList(head)",
+        "expected_python_code": "class Node:\n    def __init__(self, value):\n        self.value = value\n        self.next = None\n\ndef print_list(head):\n    while head:\n        print(f\"{head.value} -> \", end=\"\")\n        head = head.next\n    print(\"null\")\n\ndef main():\n    head = Node(1)\n    head.next = Node(2)\n    head.next.next = Node(3)\n\n    print_list(head)\n\nmain()",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    },
+    {
+        "title": "04 Lambda Functions with Captures",
+        "cpp_code": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nvoid filterAndPrint(std::vector<int> vec, int threshold) {\n    auto lambda = [threshold](int val) {\n        return val > threshold;\n    };\n    vec.erase(std::remove_if(vec.begin(), vec.end(), lambda), vec.end());\n    for (int val : vec) {\n        std::cout << val << \" \";\n    }\n    std::cout << std::endl;\n}\n\nint main() {\n    std::vector<int> vec = {1, 2, 3, 4, 5, 6};\n    filterAndPrint(vec, 3);\n    return 0;\n}",
+        "translated_python_code": "import sys\nfrom typing import List\n\ndef filterAndPrint(vec: List[int], threshold: int) -> None:\n    lambda_func = lambda val: val > threshold\n    vec.erase(remove_if(vec, lambda_func))\n    for val in vec:\n        print(val, end=\" \")\n    print()\n\ndef main():\n    vec = [1, 2, 3, 4, 5, 6]\n    filterAndPrint(vec, 3)\n    return 0",
+        "expected_python_code": "def filter_and_print(vec, threshold):\n    lambda_func = lambda val: val > threshold\n    vec = list(filter(lambda_func, vec))\n    for val in vec:\n        print(val, end=\" \")\n    print()\n\ndef main():\n    vec = [1, 2, 3, 4, 5, 6]\n    filter_and_print(vec, 3)\n\nmain()",
+        "match_with_reference": false,
+        "success": true,
+        "error": null
+    }
+]
