@@ -81,8 +81,8 @@ def main():
     setup_logging(verbose=True)
     logger = logging.getLogger(__name__)
     
-    test_cases_file = "code_pairs_hard.json"
-    results_file = "Results_HardCodes_Codellama7b.json"
+    test_cases_file = "Hand_code_pairs_Intermediate.json"
+    results_file = "Hand_code_pairs_Intermediate_Codellama7b.json"
     
     logger.info(f"Loading test cases from {test_cases_file}")
     test_cases = load_test_cases(test_cases_file)
