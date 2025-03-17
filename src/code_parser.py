@@ -135,3 +135,32 @@ class CodeParser:
             
         if "thread" in self.code or "mutex" in self.code or "atomic" in self.code:
             self.parsed_data["challenges"].append("Multithreading")
+
+
+
+# Test Cases
+if __name__ == "__main__":
+    python_code = """\nimport os\nfrom sys import path\n\nclass SampleClass:\n    def method_one(self):\n        pass\n\n    def method_two(self):\n        if True:\n            return\n"""
+    cpp_code = """\n#include <iostream>\nusing namespace std;\n\nclass Test {\n    void foo() {}\n    void bar() {}\n};\n\nint main() {\n    if (true) {\n        return 0;\n    }\n}\n"""
+    
+    # Test Python parsing
+    parser = CodeParser("python", python_code)
+    result = parser.parse()
+    print("Python Parsing Results:", result)
+    assert "SampleClass" in result["classes"]
+    assert "method_one" in result["functions"]
+    assert "method_two" in result["functions"]
+    assert "if" in result["control_flow"]
+    assert "os" in result["dependencies"]
+    
+    # Test C++ parsing
+    parser = CodeParser("cpp", cpp_code)
+    result = parser.parse()
+    print("C++ Parsing Results:", result)
+    assert "Test" in result["classes"]
+    assert "foo" in result["functions"]
+    assert "bar" in result["functions"]
+    assert "if" in result["control_flow"]
+    assert "iostream" in result["dependencies"]
+    
+    print("All tests passed!")

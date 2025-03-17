@@ -1,7 +1,11 @@
 import logging
 import json
-from model_client import ModelClient
-from code_translator import CodeTranslator
+#from model_client import ModelClient
+#from code_translator import CodeTranslator
+from src.code_translator import CodeTranslator
+from src.model_client import ModelClient
+from src.code_parser import CodeParser
+from src.code_translator import CodeTranslator
 
 def setup_logging(verbose: bool = False) -> None:
     """

@@ -1,8 +1,9 @@
-from code_parser import CodeParser
-from prompt_engineer import PromptEngineer
-from model_client import ModelClient
-from output_processor import OutputProcessor
-from code_translator import CodeTranslator
+#from src import CodeParser, PromptEngineer, ModelClient, OutputProcessor, CodeTranslator
+from src.code_parser import CodeParser
+from src.prompt_engineer import PromptEngineer
+from src.model_client import ModelClient
+from src.output_processor import OutputProcessor
+from src.code_translator import CodeTranslator
 
 def simple_example():
     """Example usage of the code translator with direct API calls."""

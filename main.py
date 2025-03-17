@@ -2,12 +2,18 @@ import logging
 import argparse
 from typing import Dict, Any
 
-from code_parser import CodeParser
+#from code_parser import CodeParser
+from src.code_parser import CodeParser
+from src.prompt_engineer import PromptEngineer
+from src.model_client import ModelClient
+from src.output_processor import OutputProcessor
+from src.code_translator import CodeTranslator
+'''
 from prompt_engineer import PromptEngineer
 from model_client import ModelClient
 from output_processor import OutputProcessor
 from code_translator import CodeTranslator
-
+'''
 def setup_logging(verbose: bool = False) -> None:
     """
     Configure logging for the application.
