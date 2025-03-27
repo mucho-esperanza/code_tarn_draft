@@ -31,7 +31,7 @@ def run_translation_pipeline(test_cases):
     """
     Runs the translation pipeline for each test case and saves results.
     """
-    model_client = ModelClient(model="codellama:latest", temperature=0.3)
+    model_client = ModelClient(model="deepseek-coder:6.7b", temperature=0.3)
     translator = CodeTranslator(source_language="cpp", target_language="python", model_client=model_client)
     
     results = []
@@ -85,8 +85,8 @@ def main():
     setup_logging(verbose=True)
     logger = logging.getLogger(__name__)
     
-    test_cases_file = "Hand_code_pairs_Intermediate.json"
-    results_file = "Hand_code_pairs_Intermediate_Codellama7b.json"
+    test_cases_file = "Hand_code_pairs_Advance.json"
+    results_file = "Result_Hand_code_pairs_Advance_DScoder6b.json"
     
     logger.info(f"Loading test cases from {test_cases_file}")
     test_cases = load_test_cases(test_cases_file)

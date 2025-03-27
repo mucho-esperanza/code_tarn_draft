@@ -9,83 +9,53 @@ def simple_example():
     """Example usage of the code translator with direct API calls."""
     # Define the code sample
     code_sample = """
-#include <iostream>
-#include <unordered_map>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sqlite3.h> 
 
-using namespace std;
+static int callback(void *data, int argc, char **argv, char **azColName){
+   int i;
+   fprintf(stderr, "%s: ", (const char*)data);
+   
+   for(i = 0; i<argc; i++) {
+      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+   }
+   printf("\n");
+   return 0;
+}
 
-class Node {
-public:
-    int key;
-    int value;
-    Node* prev;
-    Node* next;
-    Node(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
-};
+int main(int argc, char* argv[]) {
+   sqlite3 *db;
+   char *zErrMsg = 0;
+   int rc;
+   char *sql;
+   const char* data = "Callback function called";
 
-class LRUCache {
-private:
-    int capacity;
-    unordered_map<int, Node*> cache;
-    Node* head;
-    Node* tail;
+   /* Open database */
+   rc = sqlite3_open("test.db", &db);
+   
+   if( rc ) {
+      fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+      return(0);
+   } else {
+      fprintf(stderr, "Opened database successfully\n");
+   }
 
-    void remove(Node* node) {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
-    }
+   /* Create merged SQL statement */
+   sql = "UPDATE COMPANY set SALARY = 25000.00 where ID=1; " \
+         "SELECT * from COMPANY";
 
-    void add(Node* node) {
-        node->prev = tail->prev;
-        node->next = tail;
-        tail->prev->next = node;
-        tail->prev = node;
-    }
-
-public:
-    LRUCache(int cap) : capacity(cap) {
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
-        head->next = tail;
-        tail->prev = head;
-    }
-
-    int get(int key) {
-        if (cache.find(key) != cache.end()) {
-            Node* node = cache[key];
-            remove(node);
-            add(node);
-            return node->value;
-        }
-        return -1;
-    }
-
-    void put(int key, int value) {
-        if (cache.find(key) != cache.end()) {
-            remove(cache[key]);
-            delete cache[key];
-        }
-        Node* node = new Node(key, value);
-        add(node);
-        cache[key] = node;
-        if (cache.size() > capacity) {
-            Node* lru = head->next;
-            remove(lru);
-            cache.erase(lru->key);
-            delete lru;
-        }
-    }
-};
-
-// Example usage
-int main() {
-    LRUCache cache(2);
-    cache.put(1, 1);
-    cache.put(2, 2);
-    cout << cache.get(1) << endl;  // Output: 1
-    cache.put(3, 3);
-    cout << cache.get(2) << endl;  // Output: -1
-    return 0;
+   /* Execute SQL statement */
+   rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+   
+   if( rc != SQLITE_OK ) {
+      fprintf(stderr, "SQL error: %s\n", zErrMsg);
+      sqlite3_free(zErrMsg);
+   } else {
+      fprintf(stdout, "Operation done successfully\n");
+   }
+   sqlite3_close(db);
+   return 0;
 }
     """
     
