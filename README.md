@@ -19,8 +19,7 @@ The **Code Translation Tool** is a powerful command-line utility designed to tra
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/code-translation-tool.git
-cd code-translation-tool
+git clone https://github.com/mucho-esperanza/code_tarn_draft.git
 ```
 
 ### 2. Create Virtual Environment
