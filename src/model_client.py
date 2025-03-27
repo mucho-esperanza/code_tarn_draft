@@ -13,7 +13,7 @@ class ModelClient:
     
     def __init__(
         self, 
-        model: str = "phi3.5:latest", 
+        model: str = "codellama", 
         temperature: float = 0.3, 
         **kwargs
     ):

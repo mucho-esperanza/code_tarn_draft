@@ -2,18 +2,13 @@ import logging
 import argparse
 from typing import Dict, Any
 
-#from code_parser import CodeParser
+
 from src.code_parser import CodeParser
 from src.prompt_engineer import PromptEngineer
 from src.model_client import ModelClient
 from src.output_processor import OutputProcessor
 from src.code_translator import CodeTranslator
-'''
-from prompt_engineer import PromptEngineer
-from model_client import ModelClient
-from output_processor import OutputProcessor
-from code_translator import CodeTranslator
-'''
+
 def setup_logging(verbose: bool = False) -> None:
     """
     Configure logging for the application.
@@ -69,16 +64,20 @@ def save_to_file(output_path: str, content: str) -> None:
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Code Translation Tool")
-    
+
+    # Positional arguments (Required)
     parser.add_argument("input_file", help="Path to the input code file")
     parser.add_argument("output_file", help="Path to save the translated code")
-    parser.add_argument("--source", required=True, help="Source programming language")
-    parser.add_argument("--target", required=True, help="Target programming language")
-    parser.add_argument("--model", default="llama3.1:latest", help="Model to use for translation")
+    parser.add_argument("source_lang", help="Source programming language (e.g., C++)")
+    parser.add_argument("target_lang", help="Target programming language (e.g., Python)")
+
+    # Optional arguments
+    parser.add_argument("--model", default="codellama:latest", help="Model to use for translation")
     parser.add_argument("--temperature", type=float, default=0.3, help="Temperature for model sampling")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
-    
+
     return parser.parse_args()
+
 
 def display_results(results: Dict[str, Any]) -> None:
     """
@@ -136,13 +135,13 @@ def main():
         
         # Initialize translator
         translator = CodeTranslator(
-            source_language=args.source,
-            target_language=args.target,
-            model_client=model_client
+        source_language=args.source_lang,   # ✅ Fixed
+        target_language=args.target_lang,   # ✅ Fixed
+        model_client=model_client
         )
         
         # Translate the code
-        logger.info(f"Translating from {args.source} to {args.target}")
+        logger.info(f"Translating from {args.source_lang} to {args.target_lang}")  # ✅ Fixed
         results = translator.translate(code)
         
         # Display results
