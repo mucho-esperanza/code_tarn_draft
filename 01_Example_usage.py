@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
     """
     
     # Create a translator instance
-    model_client = ModelClient(model="codellama:latest", temperature=0.3)
+    model_client = ModelClient(model="starcoder2:latest", temperature=0.3)
     translator = CodeTranslator("C++", "Python", model_client)
     
     # Translate the code

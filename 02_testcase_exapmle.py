@@ -31,7 +31,7 @@ def run_translation_pipeline(test_cases):
     """
     Runs the translation pipeline for each test case and saves results.
     """
-    model_client = ModelClient(model="deepseek-r1:1.5b", temperature=0.3)
+    model_client = ModelClient(model="codellama:latest", temperature=0.3)
     translator = CodeTranslator(source_language="cpp", target_language="python", model_client=model_client)
     
     results = []
@@ -85,8 +85,8 @@ def main():
     setup_logging(verbose=True)
     logger = logging.getLogger(__name__)
     
-    test_cases_file = "Hand_code_pairs_Advance.json"
-    results_file = "Result_Hand_code_pairs_Advance_deepseek-r1.json"
+    test_cases_file = "/home/lpc/miniconda3/envs/tran/Hand_testcases_AlgorithmicChallenges.json"
+    results_file = "Result_Hand_code_pairs_AlgorithmicChallenges_codellama.json"
     
     logger.info(f"Loading test cases from {test_cases_file}")
     test_cases = load_test_cases(test_cases_file)
