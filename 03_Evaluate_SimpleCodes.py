@@ -9,7 +9,7 @@ from tabulate import tabulate
 import code_bert_score
 
 # Load the JSON file
-with open("/home/lpc/miniconda3/envs/tran/Result_Hand_code_pairs_Advance_DS_v2.json", "r") as file:
+with open("/home/lpc/miniconda3/envs/tran/Result_Hand_code_pairs_Advance_Qwen25coder3b.json", "r") as file:
     data = json.load(file)
 
 # Function to evaluate the translated code
@@ -35,7 +35,7 @@ def evaluate_code():
     
     # Store results
     for title, bleu, rouge_l, codebert in zip(titles, bleu_scores, rouge_scores, codebert_scores):
-        results.append([title, bleu, rouge_l, codebert])
+        results.append([title, bleu/100, rouge_l, codebert])
     
     return results
 
